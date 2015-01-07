@@ -24,8 +24,8 @@ namespace AlcmariaVictrix.Shared.Models
         public string Team_picture { get; set; }
 
         public Team Team { get; set; }
-        public List<Result> Result { get; set; }
-        public List<Game> Game { get; set; }
-        public List<Standing> Standing { get; set; }
+        public List<Result> Results { get; set; }
+        public List<Game> Games { get; set; }
+        public List<Standing> Standings { get; set; }
     }
 }

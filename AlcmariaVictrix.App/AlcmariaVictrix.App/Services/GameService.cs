@@ -122,35 +122,34 @@ namespace AlcmariaVictrix.Shared.Services
 
             try
             {
-                var comp = JObject.Parse(result)["competitions"];
-                try
-                {
-                    RootObject root = JsonConvert.DeserializeObject<RootObject>(result);
-                }
-                catch
-                {
-                    Debug.WriteLine(" test");
-                }
+                //var comp = JObject.Parse(result)["competitions"];
+                RootObject root = JsonConvert.DeserializeObject<RootObject>(result);
 
-                 competition = new Competition
-                 {
-                     Competition_id = (string)(comp["Competition"]["competition_id"] ?? ""),
-                        Name = (string)(comp["Competition"]["name"] ?? ""),
-                        Team = new Team
-                        {
-                            Name = (string)(comp["Team"]["team_naam"] ?? ""),
-                            ShortName = (string)(comp["Team"]["team_naamkort"] ?? ""),
-                        }
-                    };
-                    int id = 0;
-                    //if (Int32.TryParse((string)(comp["Competition"]["competition_id"] ?? ""), out id))
-                    //    competition.Id = id;
-                    if (Int32.TryParse((string)(comp["Team"]["team_id"] ?? ""), out id))
-                        competition.Team.Id = id;
-                    if (Int32.TryParse((string)(comp["Team"]["sport_id"] ?? ""), out id))
-                        competition.Team.SportId = id;
+                competition = root.competitions.Competition;
+                competition.Game = root.competitions.Game;
+                competition.Result = root.competitions.Result;
+                competition.Standing = root.competitions.Standing;
+                competition.Team = root.competitions.Team;
+                
+                 //competition = new Competition
+                 //{
+                 //    Competition_id = (string)(comp["Competition"]["competition_id"] ?? ""),
+                 //       Name = (string)(comp["Competition"]["name"] ?? ""),
+                 //       Team = new Team
+                 //       {
+                 //           Name = (string)(comp["Team"]["team_naam"] ?? ""),
+                 //           ShortName = (string)(comp["Team"]["team_naamkort"] ?? ""),
+                 //       }
+                 //   };
+                 //   int id = 0;
+                 //   //if (Int32.TryParse((string)(comp["Competition"]["competition_id"] ?? ""), out id))
+                 //   //    competition.Id = id;
+                 //   if (Int32.TryParse((string)(comp["Team"]["team_id"] ?? ""), out id))
+                 //       competition.Team.Id = id;
+                 //   if (Int32.TryParse((string)(comp["Team"]["sport_id"] ?? ""), out id))
+                 //       competition.Team.SportId = id;
 
-                    //return competition;               
+                 //   //return competition;               
             }
             catch (Exception ex)
             {
