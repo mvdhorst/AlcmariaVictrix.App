@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:cv="clr-namespace:WebMolen.Mobile.Core.Views;assembly=WebMolen.Mobile.Core"
+	xmlns:ex="clr-namespace:WebMolen.Mobile.Core.Extensions;assembly=WebMolen.Mobile.Core"
+	x:Class="AlcmariaVictrix.Shared.Views.CompetitionsView"
+	Title="{Binding Title}">
+
+  <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+    <ListView ItemsSource="{Binding Competitions}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <cv:TextCellExtended Text="{Binding Name}"
+										 ShowDisclosure="True" Command="{Binding ShowCompetitionCommand}" />
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+
+    <ActivityIndicator IsRunning="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center" Color="Default" />
+
+  </Grid>
+</ContentPage>
