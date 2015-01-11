@@ -6,9 +6,19 @@ namespace AlcmariaVictrix.Shared.Models
 {
     public class Game
     {
-        public int Id { get; set; }
-        public string Game_id { get; set; }
 
+        public DateTime DateSort
+        {
+            get
+            {
+                return GameDate.Date;
+            }
+        }
+
+        [JsonProperty("game_id")]
+        public int Id { get; set; }
+
+        [JsonProperty("game_number")]
         public string GameNumber { get; set; }
 
         public Competition Competition { get; set; }
@@ -17,15 +27,20 @@ namespace AlcmariaVictrix.Shared.Models
 
         public int GameType { get; set; }
 
-        public DateTime GameTime { get; set; }
+        [JsonProperty("game_date")]
+        public DateTime GameDate { get; set; }
 
+        [JsonProperty("home")]
         public string HomeTeam { get; set; }
 
+        [JsonProperty("away")]
         public string AwayTeam { get; set; }
 
-        public int HomeScore { get; set; }
+        [JsonProperty("score_home")]
+        public string HomeScore { get; set; }
 
-        public int AwayScore { get; set; }
+        [JsonProperty("score_away")]
+        public string AwayScore { get; set; }
 
         public string Umpire { get; set; }
 

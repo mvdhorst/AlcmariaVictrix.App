@@ -1,16 +1,68 @@
-﻿using System;
+﻿using AlcmariaVictrix.Shared.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebMolen.Mobile.Core.Helpers;
 using WebMolen.Mobile.Core.ViewModels;
 
 namespace AlcmariaVictrix.Shared.ViewModels
 {
     public class CompetitionInfoViewModel : ViewModelBase
     {
+        public CompetitionInfoViewModel()
+        {
+
+        }
+
         private string _competitionName;
         private string _teamName;
+        private ObservableCollection<ResultViewModel> _result;
+
+        private ObservableCollection<Game> _games;
+        private ObservableCollection<Grouping<DateTime, Game>> _gamesGrouped;
+        public ObservableCollection<Grouping<DateTime, Game>> GamesGrouped
+        {
+            get { return _gamesGrouped; }
+            set { SetProperty(ref _gamesGrouped, value); }
+        }
+
+        public ObservableCollection<ResultViewModel> Result { 
+            get { return _result; } 
+            set { SetProperty(ref _result, value); } }
+
+        public ObservableCollection<Game> Games
+        {
+            get { return _games; }
+            set 
+            { 
+                SetProperty(ref _games, value);
+                GroupGames();
+            }
+        }
+
+        private async void GroupGames()
+        {
+            await GroupGamesAsync();
+        }
+
+        private Task GroupGamesAsync()
+        {
+            return new Task(() => { 
+            //Use linq to sorty our monkeys by name and then group them by the new name sort property
+            var sorted = from monkey in Games
+                         orderby monkey.GameDate
+                         group monkey by monkey.DateSort into monkeyGroup
+                         select new Grouping<DateTime, Game>(monkeyGroup.Key, monkeyGroup);
+
+            //create a new collection of groups
+            GamesGrouped = new ObservableCollection<Grouping<DateTime, Game>>(sorted);
+            });
+   
+        }
+
         public string Name { 
             get { return _competitionName; }
             set { SetProperty(ref _competitionName, value); } 

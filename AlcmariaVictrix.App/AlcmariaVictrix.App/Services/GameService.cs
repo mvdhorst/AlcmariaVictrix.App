@@ -126,9 +126,9 @@ namespace AlcmariaVictrix.Shared.Services
                 RootObject root = JsonConvert.DeserializeObject<RootObject>(result);
 
                 competition = root.competitions.Competition;
-                competition.Game = root.competitions.Game;
-                competition.Result = root.competitions.Result;
-                competition.Standing = root.competitions.Standing;
+                competition.Games = root.competitions.Game;
+                competition.Results = root.competitions.Result;
+                competition.Standings = root.competitions.Standing;
                 competition.Team = root.competitions.Team;
                 
                  //competition = new Competition

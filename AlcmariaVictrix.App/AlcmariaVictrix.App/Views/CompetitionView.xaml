@@ -3,4 +3,5 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AlcmariaVictrix.Shared.Views.CompetitionView">
   <Label Text="{Binding MainText}" VerticalOptions="Center" HorizontalOptions="Center" />
+
 </ContentPage>

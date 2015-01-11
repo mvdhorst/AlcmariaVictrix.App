@@ -6,6 +6,17 @@ namespace AlcmariaVictrix.Shared.Models
 {
     public class Competition
     {
+        public string NameSort
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(Name) || Name.Length == 0)
+                    return "?";
+
+                return Name[0].ToString().ToUpper();
+            }
+        }
+
         public int Id
         {
             get

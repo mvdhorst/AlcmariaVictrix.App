@@ -47,6 +47,7 @@
     <Compile Include="Extensions\MathExtensions.cs" />
     <Compile Include="Factories\IViewFactory.cs" />
     <Compile Include="Factories\ViewFactory.cs" />
+    <Compile Include="Helpers\Grouping.cs" />
     <Compile Include="Interfaces\IDialogProvider.cs" />
     <Compile Include="Interfaces\INavigationAware.cs" />
     <Compile Include="Interfaces\IPage.cs" />

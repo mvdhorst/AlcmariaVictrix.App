@@ -3,9 +3,74 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="AlcmariaVictrix.Shared.Views.CompetitionInfoView"
+    xmlns:local="clr-namespace:AlcmariaVictrix.Shared.Views;assembly=AlcmariaVictrix.Shared"
     Title="{Binding Title}">
-
+  <StackLayout>
   <Label Text="{Binding Name}" />
   <Label Text="{Binding TeamName}" />
-
+    
+     <Label Text="Wedstrijden" />
+  <ListView ItemsSource="{Binding GamesGrouped}" RowHeight="55"
+            x:Name="list" 
+              IsGroupingEnabled="True"
+              GroupDisplayBinding="{Binding Key}" 
+              GroupShortNameBinding="{Binding Key}" 
+              HasUnevenRows="True">
+    <ListView.GroupHeaderTemplate>
+        <DataTemplate>
+          <ViewCell Height="35">
+            <StackLayout VerticalOptions="FillAndExpand" Padding="5" BackgroundColor="#3498DB">
+              <Label Text="{Binding Key, StringFormat='{0:dd-MMMM}'}}" TextColor="White" VerticalOptions="Center"/>
+            </StackLayout>
+          </ViewCell>
+        </DataTemplate>
+    </ListView.GroupHeaderTemplate>
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="10*" />
+          </Grid.ColumnDefinitions>
+          <Label YAlign="Center" XAlign="End" Text="{Binding HomeTeam}" Grid.Row="0" Grid.Column="0"></Label>
+          <Label YAlign="Center" XAlign="Start" Text="{Binding AwayTeam}" Grid.Row="0" Grid.Column="5"></Label>
+          <Label YAlign="Center" XAlign="Center" Text="-" Grid.Row="0" Grid.Column="2"></Label>
+          <Label YAlign="Center" XAlign="Center" Text="{Binding HomeScore}" Grid.Row="0" Grid.Column="1"></Label>
+          <Label YAlign="Center" XAlign="Center" Text="{Binding AwayScore}" Grid.Row="0" Grid.Column="4"></Label>
+        </Grid>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+  </ListView>
+    
+  <Label Text="Uitslagen" />
+  <ListView ItemsSource="{Binding Result}" RowHeight="55">
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="10*" />
+          </Grid.ColumnDefinitions>
+          <Label YAlign="Center" XAlign="End" Text="{Binding HomeTeam}" Grid.Row="0" Grid.Column="0"></Label>
+          <Label YAlign="Center" XAlign="Start" Text="{Binding AwayTeam}" Grid.Row="0" Grid.Column="5"></Label>
+          <Label YAlign="Center" XAlign="Center" Text="-" Grid.Row="0" Grid.Column="2"></Label>
+          <Label YAlign="Center" XAlign="Center" Text="{Binding HomeScore}" Grid.Row="0" Grid.Column="1"></Label>
+          <Label YAlign="Center" XAlign="Center" Text="{Binding AwayScore}" Grid.Row="0" Grid.Column="4"></Label>
+        </Grid>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+  </ListView>
+  </StackLayout>
 </ContentPage>

@@ -62,6 +62,7 @@
     <Compile Include="ViewModels\GamesViewModel.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="ViewModels\MainVM.cs" />
+    <Compile Include="ViewModels\ResultViewModel.cs" />
     <Compile Include="Views\CompetitionInfoView.xaml.cs">
       <DependentUpon>CompetitionInfoView.xaml</DependentUpon>
     </Compile>
@@ -74,6 +75,9 @@
     <Compile Include="Views\GamesView.cs" />
     <Compile Include="Views\MainView.cs" />
     <Compile Include="Views\NewsView.cs" />
+    <Compile Include="Views\ResultCell.xaml.cs">
+      <DependentUpon>ResultCell.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ResultsView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -129,6 +133,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\CompetitionInfoView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\ResultCell.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
