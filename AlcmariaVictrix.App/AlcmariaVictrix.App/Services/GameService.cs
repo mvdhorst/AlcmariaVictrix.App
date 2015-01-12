@@ -4,6 +4,8 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,8 +21,34 @@ namespace AlcmariaVictrix.Shared.Services
         private const string Key = "place met office datapoint api key here";
 
         public async Task<Models.Game[]> GetGames()
-        {
-            throw new NotImplementedException();
+        {string result = null;
+
+            try
+            {
+                Debug.WriteLine("Getting games from Alcmaria Service...");
+                result = await Get("games/honksoftbalxml");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to get competition from service provider. The service maybe down. Retry or try again later.", ex);
+            }
+
+            Game[] games;
+
+            try
+            {
+                //var comp = JObject.Parse(result)["competitions"];
+                GameRootObject root = JsonConvert.DeserializeObject<GameRootObject>(result);
+                games = root.games.Select(g => new Game { HomeTeam = g.Game.HomeTeam, AwayTeam = g.Game.AwayTeam, GameDate = g.Game.GameDate, GameNumber = g.Game.GameNumber,
+                Competition = g.Competition,
+                Field = g.Gamefield}).ToArray();
+            }
+            catch (Exception ex)
+            {
+                throw new FormatException("Failed to format competition.", ex);
+            }
+
+            return games;
         }
 
         public async Task<IEnumerable<Competition>> GetCompetitions()

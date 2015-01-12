@@ -14,33 +14,33 @@ namespace AlcmariaVictrix.Shared.ViewModels
     class GameViewModel : ViewModelBase
     {
         private readonly INavigator _navigator;
-        private readonly Game _location;
-        //private readonly ForecastReportViewModel _forecastReportViewModel;
+        private Game _game;
+        private readonly GameViewModel _gameViewModel;
+
+        public Game Game
+        {
+            get { return _game; }
+            set { SetProperty(ref _game, value); }
+        }
 
         public GameViewModel(
-            Game location, 
+            Game game, 
             INavigator navigator)
             //Func<Game, ForecastReportViewModel> forecastReportViewModelFactory)
         {
-            _location = location;
+            _game = game;
             _navigator = navigator;
+            //_gameViewModel = ViewModelFactory
             //_forecastReportViewModel = forecastReportViewModelFactory(_location);
 
-            ShowForecastCommand = new Command(ShowForecast);
+            ShowGameCommand = new Command(ShowGame);
         }
 
-        public string Name { get { return _location.GameNumber; } }
+        public ICommand ShowGameCommand { get; set; }
 
-        public DateTime IssuedDate { get; set; }
-
-        public DateTime ValidFrom { get; set; }
-
-        public DateTime ValidTo { get; set; }
-
-        public ICommand ShowForecastCommand { get; set; }
-
-        private async void ShowForecast()
+        private async void ShowGame()
         {
+
             //await _navigator.PushAsync<ForecastReportViewModel>(_forecastReportViewModel);
         }
     }

@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AlcmariaVictrix.Shared.Views.GamesView"
+             Title="Wedstrijden">
+  <StackLayout>
+    <Label Text="Wedstrijden" FontSize="Large" />
+    <ListView ItemsSource="{Binding GamesGrouped}" RowHeight="55"
+              x:Name="list"
+                IsGroupingEnabled="True"
+                GroupDisplayBinding="{Binding Key}"
+                GroupShortNameBinding="{Binding Key}"
+                HasUnevenRows="True">
+      <ListView.GroupHeaderTemplate>
+        <DataTemplate>
+          <ViewCell Height="35">
+            <StackLayout VerticalOptions="FillAndExpand" Padding="5" BackgroundColor="#EE2B23">
+              <Label Text="{Binding Key, StringFormat='{0:dddd dd MMMM}'}}" TextColor="White" VerticalOptions="Center" HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.GroupHeaderTemplate>
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <StackLayout Orientation="Vertical" Spacing="0">
+              <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+                <Label Text="{Binding Game.HomeTeam}" ></Label>
+                <Label XAlign="Center" Text="-"></Label>
+                <Label Text="{Binding Game.AwayTeam}"></Label>
+              </StackLayout>
+              <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Label Text="{Binding Game.GameDate, StringFormat='{0:HH:mm}'}}" FontSize="Small"></Label>
+                <Label Text="{Binding Game.Competition.Team.ShortName}" FontSize="Small"></Label>
+              </StackLayout>
+            </StackLayout>
+            <!--<Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="10*" />
+          </Grid.ColumnDefinitions>
+          <Label YAlign="Center" XAlign="Start" Text="{Binding HomeTeam}" Grid.Row="0" Grid.Column="0"></Label>
+          <Label YAlign="Center" XAlign="Center" Text="-" Grid.Row="0" Grid.Column="1"></Label>
+          <Label YAlign="Center" XAlign="Start" Text="{Binding AwayTeam}" Grid.Row="0" Grid.Column="2"></Label>
+          <Label YAlign="Center" XAlign="Start" Text="{Binding GameDate, StringFormat='{0:HH:mm}'}}" Grid.Row="0" Grid.Column="0"></Label>    
+          <Label YAlign="Center" XAlign="End" Text="{Binding Competition.Team.ShortName}" Grid.Row="0" Grid.Column="2"></Label>   
+        </Grid>-->
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </StackLayout>
+</ContentPage>

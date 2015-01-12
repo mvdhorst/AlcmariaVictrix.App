@@ -66,7 +66,9 @@ namespace AlcmariaVictrix.Shared.ViewModels
                 viewModel.Title = competition.Name;
                 viewModel.Name = competition.Name;
                 viewModel.TeamName = competition.Team.Name;
+                viewModel.Competition = competition;
                 viewModel.Result = new ObservableCollection<ResultViewModel>(competition.Results.Select(r => new ResultViewModel(r.HomeTeam, r.AwayTeam, r.HomeScore, r.AwayScore)));
+                viewModel.Games = new ObservableCollection<Game>(competition.Games);
             });
         }
     }

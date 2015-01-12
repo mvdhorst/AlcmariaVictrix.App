@@ -191,9 +191,9 @@ Global
 		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Debug|ARM.Deploy.0 = Debug|ARM
 		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Debug|Mixed Platforms.Deploy.0 = Debug|x86
+		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Debug|Mixed Platforms.Deploy.0 = Debug|Any CPU
 		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Debug|x86.ActiveCfg = Debug|x86
 		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Debug|x86.Build.0 = Debug|x86
 		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Debug|x86.Deploy.0 = Debug|x86
@@ -205,9 +205,9 @@ Global
 		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Release|ARM.Deploy.0 = Release|ARM
 		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Release|Mixed Platforms.Build.0 = Release|x86
-		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Release|Mixed Platforms.Deploy.0 = Release|x86
+		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Release|Mixed Platforms.Deploy.0 = Release|Any CPU
 		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Release|x86.ActiveCfg = Release|x86
 		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Release|x86.Build.0 = Release|x86
 		{BBB9AF22-7E18-4F6E-B4B5-C039DA506FF8}.Release|x86.Deploy.0 = Release|x86

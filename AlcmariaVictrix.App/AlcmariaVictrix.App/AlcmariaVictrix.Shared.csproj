@@ -48,11 +48,13 @@
     <Compile Include="Models\Competition.cs" />
     <Compile Include="Models\Field.cs" />
     <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\Gamefield.cs" />
+    <Compile Include="Models\GameTestObject.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\Season.cs" />
     <Compile Include="Models\Standing.cs" />
     <Compile Include="Models\Team.cs" />
-    <Compile Include="Models\TestObject.cs" />
+    <Compile Include="Models\CompetitionTestObject.cs" />
     <Compile Include="Services\GameService.cs" />
     <Compile Include="Services\IGameService.cs" />
     <Compile Include="Services\MockGameService.cs" />
@@ -72,7 +74,9 @@
     <Compile Include="Views\CompetitionView.xaml.cs">
       <DependentUpon>CompetitionView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\GamesView.cs" />
+    <Compile Include="Views\GamesView.xaml.cs">
+      <DependentUpon>GamesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainView.cs" />
     <Compile Include="Views\NewsView.cs" />
     <Compile Include="Views\ResultCell.xaml.cs">
@@ -139,6 +143,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\ResultCell.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\GamesView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

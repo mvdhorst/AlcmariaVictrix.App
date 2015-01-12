@@ -4,12 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="AlcmariaVictrix.Shared.Views.CompetitionInfoView"
     xmlns:local="clr-namespace:AlcmariaVictrix.Shared.Views;assembly=AlcmariaVictrix.Shared"
-    Title="{Binding Title}">
-  <StackLayout>
-  <Label Text="{Binding Name}" />
-  <Label Text="{Binding TeamName}" />
-    
-     <Label Text="Wedstrijden" />
+    Title="{Binding TeamName}">
+  <StackLayout>    
+     <Label Text="Wedstrijden" FontSize="Large" />
   <ListView ItemsSource="{Binding GamesGrouped}" RowHeight="55"
             x:Name="list" 
               IsGroupingEnabled="True"
@@ -19,8 +16,8 @@
     <ListView.GroupHeaderTemplate>
         <DataTemplate>
           <ViewCell Height="35">
-            <StackLayout VerticalOptions="FillAndExpand" Padding="5" BackgroundColor="#3498DB">
-              <Label Text="{Binding Key, StringFormat='{0:dd-MMMM}'}}" TextColor="White" VerticalOptions="Center"/>
+            <StackLayout VerticalOptions="FillAndExpand" Padding="5" BackgroundColor="#EE2B23">
+              <Label Text="{Binding Key, StringFormat='{0:dddd dd MMMM}'}}" TextColor="White" VerticalOptions="Center" HorizontalOptions="FillAndExpand"/>
             </StackLayout>
           </ViewCell>
         </DataTemplate>
@@ -28,27 +25,38 @@
     <ListView.ItemTemplate>
       <DataTemplate>
         <ViewCell>
-        <Grid>
+          <StackLayout Orientation="Vertical" Spacing="0">
+          <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+            <Label Text="{Binding HomeTeam}" ></Label>
+            <Label XAlign="Center" Text="-"></Label>
+            <Label Text="{Binding AwayTeam}"></Label>
+          </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+              <Label Text="{Binding GameDate, StringFormat='{0:HH:mm}'}}" FontSize="Small"></Label>    
+              <Label Text="{Binding Competition.Team.ShortName}" FontSize="Small"></Label>              
+            </StackLayout>
+            </StackLayout>
+        <!--<Grid>
           <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10*" />
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="5" />
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="10*" />
           </Grid.ColumnDefinitions>
-          <Label YAlign="Center" XAlign="End" Text="{Binding HomeTeam}" Grid.Row="0" Grid.Column="0"></Label>
-          <Label YAlign="Center" XAlign="Start" Text="{Binding AwayTeam}" Grid.Row="0" Grid.Column="5"></Label>
-          <Label YAlign="Center" XAlign="Center" Text="-" Grid.Row="0" Grid.Column="2"></Label>
-          <Label YAlign="Center" XAlign="Center" Text="{Binding HomeScore}" Grid.Row="0" Grid.Column="1"></Label>
-          <Label YAlign="Center" XAlign="Center" Text="{Binding AwayScore}" Grid.Row="0" Grid.Column="4"></Label>
-        </Grid>
+          <Label YAlign="Center" XAlign="Start" Text="{Binding HomeTeam}" Grid.Row="0" Grid.Column="0"></Label>
+          <Label YAlign="Center" XAlign="Center" Text="-" Grid.Row="0" Grid.Column="1"></Label>
+          <Label YAlign="Center" XAlign="Start" Text="{Binding AwayTeam}" Grid.Row="0" Grid.Column="2"></Label>
+          <Label YAlign="Center" XAlign="Start" Text="{Binding GameDate, StringFormat='{0:HH:mm}'}}" Grid.Row="0" Grid.Column="0"></Label>    
+          <Label YAlign="Center" XAlign="End" Text="{Binding Competition.Team.ShortName}" Grid.Row="0" Grid.Column="2"></Label>   
+        </Grid>-->
         </ViewCell>
       </DataTemplate>
     </ListView.ItemTemplate>
   </ListView>
     
-  <Label Text="Uitslagen" />
+  <Label Text="Uitslagen" FontSize="Large" />
   <ListView ItemsSource="{Binding Result}" RowHeight="55">
     <ListView.ItemTemplate>
       <DataTemplate>

@@ -40,7 +40,7 @@ namespace AlcmariaVictrix.Shared
         {
             // set main page
             var viewFactory = container.Resolve<IViewFactory>();
-            var mainPage = viewFactory.Resolve<CompetitionsViewModel>();
+            var mainPage = viewFactory.Resolve<GamesViewModel>();
             //var mainPage = viewFactory.Resolve<MainVM>();
             var navigationPage = new NavigationPage(mainPage);
 

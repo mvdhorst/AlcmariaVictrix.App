@@ -2,9 +2,11 @@
 using AlcmariaVictrix.Shared.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebMolen.Mobile.Core.Helpers;
 using WebMolen.Mobile.Core.Interfaces;
 using WebMolen.Mobile.Core.ViewModels;
 
@@ -12,42 +14,56 @@ namespace AlcmariaVictrix.Shared.ViewModels
 {
     class GamesViewModel : ViewModelBase
     {
-        private IEnumerable<GameViewModel> _areas;
-        private readonly IGameService _mountainWeatherService;
-        private readonly Func<Game, GameViewModel> _areaViewModelFactory;
+        private IEnumerable<GameViewModel> _games;
+        private ObservableCollection<Grouping<DateTime, GameViewModel>> _gamesGrouped;
+        private readonly IGameService _gameService;
+        private readonly Func<Game, GameViewModel> _gameModelFactory;
         private readonly IDialogProvider _dialogProvider;
 
         public GamesViewModel(
-            IGameService mountainWeatherService,
-            Func<Game, GameViewModel> areaViewModelFactory,
+            IGameService gameService,
+            Func<Game, GameViewModel> gameViewModelFactory,
             IDialogProvider dialogProvider)
         {
             this._dialogProvider = dialogProvider;
-            _areaViewModelFactory = areaViewModelFactory;
-            _mountainWeatherService = mountainWeatherService;
-            Title = "Mountain Areas";
-            SetAreas();
+            _gameModelFactory = gameViewModelFactory;
+            _gameService = gameService;
+            Title = "Games";
+            SetGames();
         }
 
-        public IEnumerable<GameViewModel> Areas
+        public IEnumerable<GameViewModel> Games
         {
-            get  { return _areas; }
-            set  { SetProperty(ref _areas, value); }
+            get  { return _games; }
+            set  { SetProperty(ref _games, value); }
+        }
+        public ObservableCollection<Grouping<DateTime, GameViewModel>> GamesGrouped
+        {
+            get { return _gamesGrouped; }
+            set { SetProperty(ref _gamesGrouped, value); }
         }
 
-        private async void SetAreas()
+        private async void SetGames()
         {
             try
             {
                 IsBusy = true;
-                var locations = await _mountainWeatherService.GetGames();
+                var games = await _gameService.GetGames();
 
-                if (locations == null)
+                if (games == null)
                     return;
 
-                Areas = locations
-                    .Select(location =>  _areaViewModelFactory(location))
+                Games = games
+                    .Select(game =>  _gameModelFactory(game))
                     .ToList();
+                //Use linq to sorty our monkeys by name and then group them by the new name sort property
+                var sorted = from game in Games
+                             orderby game.Game.GameDate
+                             group game by game.Game.DateSort into gameGroup
+                             select new Grouping<DateTime, GameViewModel>(gameGroup.Key, gameGroup);
+
+                //create a new collection of groups
+                GamesGrouped = new ObservableCollection<Grouping<DateTime, GameViewModel>>(sorted);
             }
             catch (Exception ex)
             {
@@ -56,7 +72,7 @@ namespace AlcmariaVictrix.Shared.ViewModels
                     var result = await _dialogProvider.DisplayActionSheet(ex.Message, "Cancel", null, "Retry");
 
                     if (result == "Retry")
-                        SetAreas();
+                        SetGames();
                 };
 
                 action();

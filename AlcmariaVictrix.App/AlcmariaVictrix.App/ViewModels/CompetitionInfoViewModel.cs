@@ -20,9 +20,9 @@ namespace AlcmariaVictrix.Shared.ViewModels
         private string _competitionName;
         private string _teamName;
         private ObservableCollection<ResultViewModel> _result;
-
         private ObservableCollection<Game> _games;
         private ObservableCollection<Grouping<DateTime, Game>> _gamesGrouped;
+        public Competition Competition { get; set; }
         public ObservableCollection<Grouping<DateTime, Game>> GamesGrouped
         {
             get { return _gamesGrouped; }
@@ -39,26 +39,29 @@ namespace AlcmariaVictrix.Shared.ViewModels
             set 
             { 
                 SetProperty(ref _games, value);
+                foreach (Game game in _games)
+                    game.Competition = Competition;
                 GroupGames();
             }
         }
 
-        private async void GroupGames()
-        {
-            await GroupGamesAsync();
+        private void GroupGames()
+        {            
+            //Use linq to sorty our monkeys by name and then group them by the new name sort property
+            var sorted = from game in Games
+                         orderby game.GameDate
+                         group game by game.DateSort into gameGroup
+                         select new Grouping<DateTime, Game>(gameGroup.Key, gameGroup);
+
+            //create a new collection of groups
+            GamesGrouped = new ObservableCollection<Grouping<DateTime, Game>>(sorted);
+            //await GroupGamesAsync();
         }
 
         private Task GroupGamesAsync()
         {
             return new Task(() => { 
-            //Use linq to sorty our monkeys by name and then group them by the new name sort property
-            var sorted = from monkey in Games
-                         orderby monkey.GameDate
-                         group monkey by monkey.DateSort into monkeyGroup
-                         select new Grouping<DateTime, Game>(monkeyGroup.Key, monkeyGroup);
 
-            //create a new collection of groups
-            GamesGrouped = new ObservableCollection<Grouping<DateTime, Game>>(sorted);
             });
    
         }
