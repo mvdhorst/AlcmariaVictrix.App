@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlcmariaVictrix.Shared.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace AlcmariaVictrix.Shared.Services
     public class MockGameService : IGameService
     {
 
-        public Task<Models.Game[]> GetGames()
+        public Task<List<Game>> GetGames()
         {
             throw new NotImplementedException();
         }

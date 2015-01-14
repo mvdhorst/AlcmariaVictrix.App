@@ -1,13 +1,15 @@
-﻿using AlcmariaVictrix.Shared.Models;
+﻿using Akavache;
+using AlcmariaVictrix.Shared.Models;
+using Connectivity.Plugin;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Polly;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
+using System.Net;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 
 namespace AlcmariaVictrix.Shared.Services
@@ -20,8 +22,60 @@ namespace AlcmariaVictrix.Shared.Services
         // Please obtain a free key from http://www.metoffice.gov.uk/datapoint
         private const string Key = "place met office datapoint api key here";
 
-        public async Task<Models.Game[]> GetGames()
-        {string result = null;
+
+
+        public async Task<List<Game>> GetGames()
+        {
+            var cache = BlobCache.LocalMachine;
+            var cachedGames = cache.GetAndFetchLatest("games", () => GetGamesAsync(),
+                offset =>
+                {
+                    TimeSpan elapsed = DateTimeOffset.Now - offset;
+                    return elapsed > new TimeSpan(hours: 24, minutes: 0, seconds: 0);
+                });
+
+            var games = await cachedGames.FirstOrDefaultAsync();
+            return games;
+        }
+
+        public async Task<System.Collections.Generic.IEnumerable<Competition>> GetCompetitions()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Game> GetGame(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Competition> GetCompetitionInfo(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task<List<Game>> GetGamesAsync()
+        {
+
+            List<Game> games = null;
+            Task<List<Game>> getGamesTask;
+            getGamesTask = GetGamesAsync2();
+            if (CrossConnectivity.Current.IsConnected)
+            {
+                games = await Policy
+                      .Handle<WebException>()
+                      .WaitAndRetry
+                      (
+                        retryCount: 5,
+                        sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
+                      )
+                      .ExecuteAsync(async () => await getGamesTask);
+            }
+            return games;
+        }
+
+        private async Task<List<Game>> GetGamesAsync2()
+        {
+            string result = null;
 
             try
             {
@@ -33,15 +87,21 @@ namespace AlcmariaVictrix.Shared.Services
                 throw new Exception("Failed to get competition from service provider. The service maybe down. Retry or try again later.", ex);
             }
 
-            Game[] games;
+            List<Game> games;
 
             try
             {
                 //var comp = JObject.Parse(result)["competitions"];
                 GameRootObject root = JsonConvert.DeserializeObject<GameRootObject>(result);
-                games = root.games.Select(g => new Game { HomeTeam = g.Game.HomeTeam, AwayTeam = g.Game.AwayTeam, GameDate = g.Game.GameDate, GameNumber = g.Game.GameNumber,
-                Competition = g.Competition,
-                Field = g.Gamefield}).ToArray();
+                games = root.games.Select(g => new Game
+                {
+                    HomeTeam = g.Game.HomeTeam,
+                    AwayTeam = g.Game.AwayTeam,
+                    GameDate = g.Game.GameDate,
+                    GameNumber = g.Game.GameNumber,
+                    Competition = g.Competition,
+                    Field = g.Gamefield
+                }).ToList();
             }
             catch (Exception ex)
             {
@@ -51,7 +111,7 @@ namespace AlcmariaVictrix.Shared.Services
             return games;
         }
 
-        public async Task<IEnumerable<Competition>> GetCompetitions()
+        private async Task<IEnumerable<Competition>> GetCompetitionsAsync()
         {
             string result = null;
 
@@ -112,27 +172,12 @@ namespace AlcmariaVictrix.Shared.Services
             return competitions;
         }
 
-        public async Task<Models.Game> GetGame(int id)
+        private async Task<Models.Game> GetGameAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        private async Task<string> Get(string uri)
-        {
-            var client = new System.Net.Http.HttpClient();
-
-            client.BaseAddress = new Uri(BaseUrL);
-
-            var response = await client.GetAsync(string.Format("{0}?key={1}", uri, Key));
-
-            response.EnsureSuccessStatusCode();
-
-            var result = response.Content.ReadAsStringAsync().Result;
-            return result;
-        }
-
-
-        public async Task<Competition> GetCompetitionInfo(int competitionId)
+        private async Task<Competition> GetCompetitionInfoAsync(int competitionId)
         {
             string result = null;
 
@@ -158,26 +203,26 @@ namespace AlcmariaVictrix.Shared.Services
                 competition.Results = root.competitions.Result;
                 competition.Standings = root.competitions.Standing;
                 competition.Team = root.competitions.Team;
-                
-                 //competition = new Competition
-                 //{
-                 //    Competition_id = (string)(comp["Competition"]["competition_id"] ?? ""),
-                 //       Name = (string)(comp["Competition"]["name"] ?? ""),
-                 //       Team = new Team
-                 //       {
-                 //           Name = (string)(comp["Team"]["team_naam"] ?? ""),
-                 //           ShortName = (string)(comp["Team"]["team_naamkort"] ?? ""),
-                 //       }
-                 //   };
-                 //   int id = 0;
-                 //   //if (Int32.TryParse((string)(comp["Competition"]["competition_id"] ?? ""), out id))
-                 //   //    competition.Id = id;
-                 //   if (Int32.TryParse((string)(comp["Team"]["team_id"] ?? ""), out id))
-                 //       competition.Team.Id = id;
-                 //   if (Int32.TryParse((string)(comp["Team"]["sport_id"] ?? ""), out id))
-                 //       competition.Team.SportId = id;
 
-                 //   //return competition;               
+                //competition = new Competition
+                //{
+                //    Competition_id = (string)(comp["Competition"]["competition_id"] ?? ""),
+                //       Name = (string)(comp["Competition"]["name"] ?? ""),
+                //       Team = new Team
+                //       {
+                //           Name = (string)(comp["Team"]["team_naam"] ?? ""),
+                //           ShortName = (string)(comp["Team"]["team_naamkort"] ?? ""),
+                //       }
+                //   };
+                //   int id = 0;
+                //   //if (Int32.TryParse((string)(comp["Competition"]["competition_id"] ?? ""), out id))
+                //   //    competition.Id = id;
+                //   if (Int32.TryParse((string)(comp["Team"]["team_id"] ?? ""), out id))
+                //       competition.Team.Id = id;
+                //   if (Int32.TryParse((string)(comp["Team"]["sport_id"] ?? ""), out id))
+                //       competition.Team.SportId = id;
+
+                //   //return competition;               
             }
             catch (Exception ex)
             {
@@ -186,5 +231,20 @@ namespace AlcmariaVictrix.Shared.Services
 
             return competition;
         }
+
+        private async Task<string> Get(string uri)
+        {
+            var client = new System.Net.Http.HttpClient();
+
+            client.BaseAddress = new Uri(BaseUrL);
+
+            var response = await client.GetAsync(string.Format("{0}?key={1}", uri, Key));
+
+            response.EnsureSuccessStatusCode();
+
+            var result = response.Content.ReadAsStringAsync().Result;
+            return result;
+        }
+
     }
 }

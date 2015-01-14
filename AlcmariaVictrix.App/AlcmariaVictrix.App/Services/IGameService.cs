@@ -9,7 +9,7 @@ namespace AlcmariaVictrix.Shared.Services
 {
     public interface IGameService
     {
-        Task<Game[]> GetGames();
+        Task<List<Game>> GetGames();
 
         Task<IEnumerable<Competition>> GetCompetitions();
 

@@ -26,6 +26,8 @@ namespace AlcmariaVictrix.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::ModernHttpClient.Resource.String.library_name = global::AlcmariaVictrix.Droid.Resource.String.library_name;
+			global::Splat.Resource.String.library_name = global::AlcmariaVictrix.Droid.Resource.String.library_name;
 		}
 		
 		public partial class Attribute
@@ -53,6 +55,22 @@ namespace AlcmariaVictrix.Droid
 			}
 			
 			private Drawable()
+			{
+			}
+		}
+		
+		public partial class String
+		{
+			
+			// aapt resource value: 0x7f030000
+			public const int library_name = 2130903040;
+			
+			static String()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private String()
 			{
 			}
 		}
