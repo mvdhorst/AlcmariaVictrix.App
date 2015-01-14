@@ -79,9 +79,6 @@
     <Reference Include="OkHttp">
       <HintPath>..\..\packages\modernhttpclient.2.1.5\lib\MonoAndroid\OkHttp.dll</HintPath>
     </Reference>
-    <Reference Include="Polly">
-      <HintPath>..\..\packages\Polly.2.1.0\lib\portable-net45+wp80+win\Polly.dll</HintPath>
-    </Reference>
     <Reference Include="Punchclock">
       <HintPath>..\..\packages\Punchclock.1.1.1\lib\Portable-net45+win+wpa81+wp80\Punchclock.dll</HintPath>
     </Reference>

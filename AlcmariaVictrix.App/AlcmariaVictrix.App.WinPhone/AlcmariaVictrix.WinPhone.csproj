@@ -199,9 +199,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.7\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Polly">
-      <HintPath>..\..\packages\Polly.2.1.0\lib\portable-net45+wp80+win\Polly.dll</HintPath>
-    </Reference>
     <Reference Include="Punchclock">
       <HintPath>..\..\packages\Punchclock.1.1.1\lib\Portable-net45+win+wpa81+wp80\Punchclock.dll</HintPath>
     </Reference>
