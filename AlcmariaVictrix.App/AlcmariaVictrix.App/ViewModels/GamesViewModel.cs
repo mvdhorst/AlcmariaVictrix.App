@@ -48,7 +48,7 @@ namespace AlcmariaVictrix.Shared.ViewModels
             try
             {
                 IsBusy = true;
-                var games = await _gameService.GetGames();
+                var games = await _gameService.GetGames().ConfigureAwait(false);
 
                 if (games == null)
                     return;
@@ -57,10 +57,10 @@ namespace AlcmariaVictrix.Shared.ViewModels
                     .Select(game =>  _gameModelFactory(game))
                     .ToList();
                 //Use linq to sorty our monkeys by name and then group them by the new name sort property
-                var sorted = from game in Games
+                var sorted = (from game in Games
                              orderby game.Game.GameDate
                              group game by game.Game.DateSort into gameGroup
-                             select new Grouping<DateTime, GameViewModel>(gameGroup.Key, gameGroup);
+                             select new Grouping<DateTime, GameViewModel>(gameGroup.Key, gameGroup.GroupBy(g => g.Game.Competition.Competition_id).SelectMany(g => g)));
 
                 //create a new collection of groups
                 GamesGrouped = new ObservableCollection<Grouping<DateTime, GameViewModel>>(sorted);

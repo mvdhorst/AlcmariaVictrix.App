@@ -26,13 +26,15 @@ namespace AlcmariaVictrix.Shared.Services
 
         public async Task<List<Game>> GetGames()
         {
+            Debug.WriteLine("Getting games");
             var cache = BlobCache.LocalMachine;
-            var cachedGames = cache.GetAndFetchLatest("games", () => GetGamesAsync(),
-                offset =>
-                {
-                    TimeSpan elapsed = DateTimeOffset.Now - offset;
-                    return elapsed > new TimeSpan(hours: 24, minutes: 0, seconds: 0);
-                });
+            var cachedGames = cache.GetAndFetchLatest("games", async () => await GetGamesAsync());
+                //,
+                //offset =>
+                //{
+                //    TimeSpan elapsed = DateTimeOffset.Now - offset;
+                //    return elapsed > new TimeSpan(hours: 0, minutes: 1, seconds: 0);
+                //});
 
             var games = await cachedGames.FirstOrDefaultAsync();
             return games;
@@ -55,19 +57,20 @@ namespace AlcmariaVictrix.Shared.Services
 
         private async Task<List<Game>> GetGamesAsync()
         {
-
+            Debug.WriteLine("Getting games from webservice async");
             List<Game> games = null;
             Task<List<Game>> getGamesTask;
             getGamesTask = GetGamesAsync2();
-            if (CrossConnectivity.Current.IsConnected)
+            //if (CrossConnectivity.Current.IsConnected)
             {
+                
                 games = await Policy
                       .Handle<WebException>()
-                      .WaitAndRetry
-                      (
-                        retryCount: 5,
-                        sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
-                      )
+                      .WaitAndRetryAsync(5, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (_, timeSpan) => getGamesTask.RunSynchronously())
+                      //(
+                      //  retryCount: 5,
+                      //  sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
+                      //)
                       .ExecuteAsync(async () => await getGamesTask);
             }
             return games;

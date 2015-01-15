@@ -8,6 +8,7 @@ using System.Windows.Input;
 using WebMolen.Mobile.Core.Services;
 using WebMolen.Mobile.Core.ViewModels;
 using Xamarin.Forms;
+using System.Diagnostics;
 
 namespace AlcmariaVictrix.Shared.ViewModels
 {
@@ -20,7 +21,20 @@ namespace AlcmariaVictrix.Shared.ViewModels
         public Game Game
         {
             get { return _game; }
-            set { SetProperty(ref _game, value); }
+            set 
+            { 
+                SetProperty(ref _game, value);
+            }
+        }
+
+        public String Competers
+        {
+            get { return _game.HomeTeam + " - " + _game.AwayTeam; }
+        }
+
+        public string SubInfo
+        {
+            get { return _game.GameDate.ToString("HH:mm") + " " + _game.Competition.Name; }
         }
 
         public GameViewModel(
