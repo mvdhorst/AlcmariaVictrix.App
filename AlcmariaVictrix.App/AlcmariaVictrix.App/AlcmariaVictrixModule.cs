@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Acr.XamForms.UserDialogs;
 
 namespace AlcmariaVictrix.Shared
 {
@@ -15,6 +16,7 @@ namespace AlcmariaVictrix.Shared
     {
         protected override void Load(ContainerBuilder builder)
         {
+
             // service registration
             builder.RegisterType<GameService>()
                 .As<IGameService>()
@@ -35,6 +37,7 @@ namespace AlcmariaVictrix.Shared
             builder.RegisterType<CompetitionInfoViewModel>()
                 .SingleInstance();
 
+            builder.RegisterType<NewsViewModel>().SingleInstance();
             // view registration
             builder.RegisterType<MainView>()
                 .SingleInstance();
@@ -46,6 +49,8 @@ namespace AlcmariaVictrix.Shared
 
             builder.RegisterType<CompetitionInfoView>()
                 .SingleInstance();
+
+            builder.RegisterType<NewsView>().SingleInstance();
 
             // current page resolver
             builder.RegisterInstance<Func<Page>>(() =>

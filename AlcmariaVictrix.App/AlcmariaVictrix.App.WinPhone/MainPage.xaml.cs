@@ -10,6 +10,7 @@ using Microsoft.Phone.Shell;
 using AlcmariaVictrix.Shared;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.WinPhone;
+using Acr.XamForms.UserDialogs.WindowsPhone;
 
 namespace AlcmariaVictrix.WinPhone
 {
@@ -21,6 +22,7 @@ namespace AlcmariaVictrix.WinPhone
             SupportedOrientations = SupportedPageOrientation.PortraitOrLandscape;
 
             Forms.Init();
+            new UserDialogService();
             LoadApplication(new AlcmariaVictrixApp());
         }
     }

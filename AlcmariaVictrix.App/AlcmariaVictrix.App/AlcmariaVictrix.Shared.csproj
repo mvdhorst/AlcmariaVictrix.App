@@ -63,6 +63,7 @@
     <Compile Include="ViewModels\CompetitionInfoViewModel.cs" />
     <Compile Include="ViewModels\CompetitionsViewModel.cs" />
     <Compile Include="ViewModels\CompetitionViewModel.cs" />
+    <Compile Include="ViewModels\NewsViewModel.cs" />
     <Compile Include="ViewModels\GamesViewModel.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="ViewModels\MainVM.cs" />
@@ -79,8 +80,12 @@
     <Compile Include="Views\GamesView.xaml.cs">
       <DependentUpon>GamesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainView.cs" />
-    <Compile Include="Views\NewsView.cs" />
+    <Compile Include="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NewsView.xaml.cs">
+      <DependentUpon>NewsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ResultCell.xaml.cs">
       <DependentUpon>ResultCell.xaml</DependentUpon>
     </Compile>
@@ -88,6 +93,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Acr.XamForms.UserDialogs">
+      <HintPath>..\..\packages\Acr.XamForms.UserDialogs.3.0.0\lib\portable-win+net45+MonoAndroid10+Xamarin.iOS10+wp8\Acr.XamForms.UserDialogs.dll</HintPath>
+    </Reference>
     <Reference Include="Akavache">
       <HintPath>..\..\packages\akavache.core.4.1.0\lib\Portable-Net45+Win8+WP8+Wpa81\Akavache.dll</HintPath>
     </Reference>
@@ -210,6 +218,18 @@
     <Content Include="FodyWeavers.xml">
       <SubType>Designer</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\NewsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

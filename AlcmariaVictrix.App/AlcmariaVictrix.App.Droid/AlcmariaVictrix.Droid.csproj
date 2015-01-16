@@ -46,6 +46,12 @@
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Acr.XamForms.UserDialogs">
+      <HintPath>..\..\packages\Acr.XamForms.UserDialogs.3.0.0\lib\MonoAndroid10\Acr.XamForms.UserDialogs.dll</HintPath>
+    </Reference>
+    <Reference Include="Acr.XamForms.UserDialogs.Droid">
+      <HintPath>..\..\packages\Acr.XamForms.UserDialogs.3.0.0\lib\MonoAndroid10\Acr.XamForms.UserDialogs.Droid.dll</HintPath>
+    </Reference>
     <Reference Include="Akavache, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\akavache.core.4.1.0\lib\MonoAndroid\Akavache.dll</HintPath>
@@ -53,6 +59,9 @@
     <Reference Include="Akavache.Sqlite3, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\akavache.sqlite3.4.1.0\lib\Portable-Net45+Win8+WP8+Wpa81\Akavache.Sqlite3.dll</HintPath>
+    </Reference>
+    <Reference Include="AndHUD">
+      <HintPath>..\..\packages\Acr.XamForms.UserDialogs.3.0.0\lib\MonoAndroid10\AndHUD.dll</HintPath>
     </Reference>
     <Reference Include="Connectivity.Plugin">
       <HintPath>..\..\packages\Xam.Plugin.Connectivity.1.0.0.3\lib\MonoAndroid10\Connectivity.Plugin.dll</HintPath>

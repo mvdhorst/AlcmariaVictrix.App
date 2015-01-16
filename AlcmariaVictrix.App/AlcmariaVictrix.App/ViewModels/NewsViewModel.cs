@@ -14,25 +14,28 @@ using Xamarin.Forms;
 
 namespace AlcmariaVictrix.Shared.ViewModels
 {
-    class GamesViewModel : ViewModelBase
+    class NewsViewModel : ViewModelBase
     {
         private IEnumerable<GameViewModel> _games;
         private ObservableCollection<Grouping<DateTime, GameViewModel>> _gamesGrouped;
         private readonly IGameService _gameService;
         private readonly Func<Game, GameViewModel> _gameModelFactory;
+        private readonly IDialogProvider _dialogProvider;
         private readonly IUserDialogService dialogService;
 
-        
-        public GamesViewModel(
+
+        public NewsViewModel(
             IGameService gameService,
             Func<Game, GameViewModel> gameViewModelFactory,
+            IDialogProvider dialogProvider,
             IUserDialogService dialogService)
         {
             this.dialogService = dialogService;
+            this._dialogProvider = dialogProvider;
             _gameModelFactory = gameViewModelFactory;
             _gameService = gameService;
-            Title = "Games";
-            SetGames();
+            Title = "Nieuws";
+            //SetGames();
         }
 
         public IEnumerable<GameViewModel> Games
@@ -48,6 +51,19 @@ namespace AlcmariaVictrix.Shared.ViewModels
 
         private async void SetGames()
         {
+            Action action1 = async () =>
+            {
+                var r = await this.dialogService.ConfirmAsync("Pick a choice", "Pick Title", "Yes", "No");
+                //var text = (r ? "Yes" : "No");
+                //this.Result = "Confirmation Choice: " + text;
+
+                //var result = await dialogService.ActionSheet(DisplayActionSheet("test", "Cancel", null, "Retry");
+
+                if (r)
+                    SetGames();
+            };
+
+            action1();
             IUserDialogService test = DependencyService.Get<IUserDialogService>();
             try
             {
@@ -73,7 +89,7 @@ namespace AlcmariaVictrix.Shared.ViewModels
             {
                 Action action = async () =>
                 {
-                    var r = await this.dialogService.ConfirmAsync("Reload games?", "Can't load games", "Yes", "No");
+                    var r = await this.dialogService.ConfirmAsync("Pick a choice", "Pick Title", "Yes", "No");
                     //var result = await _dialogProvider.DisplayActionSheet(ex.Message, "Cancel", null, "Retry");
 
                     if (r)

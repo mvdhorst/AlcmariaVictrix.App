@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using WebMolen.Mobile.Core.Helpers;
 using WebMolen.Mobile.Core.Interfaces;
 using WebMolen.Mobile.Core.ViewModels;
+using Acr.XamForms.UserDialogs;
 
 namespace AlcmariaVictrix.Shared.ViewModels
 {
@@ -17,7 +18,7 @@ namespace AlcmariaVictrix.Shared.ViewModels
         private IEnumerable<CompetitionViewModel> _competitions;
         private readonly IGameService _gameService;
         private readonly Func<Competition, CompetitionViewModel> _competitionViewModelFactory;
-        private readonly IDialogProvider _dialogProvider;
+        private readonly IUserDialogService _dialogService;
         private ObservableCollection<Grouping<string, CompetitionViewModel>> _competitionsGrouped;
         public ObservableCollection<Grouping<string, CompetitionViewModel>> CompetitionsGrouped
         {
@@ -28,9 +29,9 @@ namespace AlcmariaVictrix.Shared.ViewModels
         public CompetitionsViewModel(
             IGameService gameService,
             Func<Competition, CompetitionViewModel> competitionViewModelFactory,
-            IDialogProvider dialogProvider)
+            IUserDialogService dialogService)
         {
-            this._dialogProvider = dialogProvider;
+            this._dialogService = dialogService;
             _competitionViewModelFactory = competitionViewModelFactory;
             _gameService = gameService;
             Title = "Teams";
@@ -69,9 +70,9 @@ namespace AlcmariaVictrix.Shared.ViewModels
             {
                 Action action = async () =>
                 {
-                    var result = await _dialogProvider.DisplayActionSheet(ex.Message, "Cancel", null, "Retry");
+                    var r = await this._dialogService.ConfirmAsync("Reload competitions", "Can't load competitions", "Yes", "No");
 
-                    if (result == "Retry")
+                    if (r)
                         SetCompetitions();
                 };
 

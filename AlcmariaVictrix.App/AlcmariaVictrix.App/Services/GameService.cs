@@ -28,8 +28,14 @@ namespace AlcmariaVictrix.Shared.Services
         {
             Debug.WriteLine("Getting games");
             var cache = BlobCache.LocalMachine;
-            var cachedGames = cache.GetAndFetchLatest("games", async () => await GetGamesAsync());
-                //,
+            //await cache.InvalidateAll();
+            var cachedGames = cache.GetAndFetchLatest("games", async () => await GetGamesAsync(),
+                offset =>
+                {
+                    TimeSpan elapsed = DateTimeOffset.Now - offset;
+                    return elapsed > new TimeSpan(hours: 0, minutes: 0, seconds: 20);
+                }
+                , new DateTimeOffset(DateTime.UtcNow.AddSeconds(30)));
                 //offset =>
                 //{
                 //    TimeSpan elapsed = DateTimeOffset.Now - offset;
@@ -42,7 +48,7 @@ namespace AlcmariaVictrix.Shared.Services
 
         public async Task<System.Collections.Generic.IEnumerable<Competition>> GetCompetitions()
         {
-            throw new NotImplementedException();
+            return await GetCompetitionsAsync();
         }
 
         public async Task<Game> GetGame(int id)
@@ -52,7 +58,7 @@ namespace AlcmariaVictrix.Shared.Services
 
         public async Task<Competition> GetCompetitionInfo(int id)
         {
-            throw new NotImplementedException();
+            return await GetCompetitionInfoAsync(id);
         }
 
         private async Task<List<Game>> GetGamesAsync()
