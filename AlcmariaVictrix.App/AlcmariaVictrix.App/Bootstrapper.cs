@@ -46,7 +46,17 @@ namespace AlcmariaVictrix.Shared
             var viewFactory = container.Resolve<IViewFactory>();
             //var mainPage = viewFactory.Resolve<GamesViewModel>();
             var mainPage = viewFactory.Resolve<MainVM>();
-            var navigationPage = new NavigationPage(mainPage);
+
+            var tabbedPage = new TabbedPage();
+            var gamesPage = viewFactory.Resolve<GamesViewModel>();
+            var newsPage = viewFactory.Resolve<NewsViewModel>();
+            var compPage = viewFactory.Resolve<CompetitionsViewModel>();
+
+            tabbedPage.Children.Add(gamesPage);
+            tabbedPage.Children.Add(newsPage);
+            tabbedPage.Children.Add(compPage);
+
+            var navigationPage = new NavigationPage(tabbedPage);
 
             Color backgroundColor = (Color)_application.Resources["backgroundColor"];
             Color textColor = (Color)_application.Resources["textColor"];

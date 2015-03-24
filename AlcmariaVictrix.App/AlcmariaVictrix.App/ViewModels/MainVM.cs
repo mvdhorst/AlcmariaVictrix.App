@@ -31,11 +31,6 @@ namespace AlcmariaVictrix.Shared.ViewModels
         TodayQuickGameInfo = "Vandaag geen wedstrijden";
 
 
-        IViewFactory factory = ViewFactory.Instance;
-        var gamesPage = factory.Resolve<GamesViewModel>();
-        var newsPage = factory.Resolve<NewsViewModel>();
-        var compPage = factory.Resolve<CompetitionsViewModel>();
-        Views = new List<Page> { gamesPage, newsPage, compPage };
     }
  
  
