@@ -9,8 +9,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace AlcmariaVictrix.Shared.Services
 {
@@ -255,5 +257,62 @@ namespace AlcmariaVictrix.Shared.Services
             return result;
         }
 
+
+
+        public Task<IEnumerable<FeedItem>> GetNewsItems()
+        {
+            return ExecuteLoadItemsCommand();
+        }
+
+        private const string _url = "http://www.alcmariavictrix.nl/feeds/nieuws-hsb.rss";
+        bool IsBusy = false;
+
+        private async Task<IEnumerable<FeedItem>> ExecuteLoadItemsCommand()
+        {
+            List<FeedItem> FeedItems = new List<FeedItem>();
+            if (IsBusy)
+                return null;
+
+            IsBusy = true;
+
+            try
+            {
+                var httpClient = new HttpClient();
+                var responseString = await httpClient.GetStringAsync(_url);
+
+                FeedItems.Clear();
+                var items = await ParseFeed(responseString);
+                foreach (var item in items)
+                {
+                    FeedItems.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new FormatException("Failed to load news items.", ex);
+            }
+
+            IsBusy = false;
+            return FeedItems;
+        }
+
+        private async Task<List<FeedItem>> ParseFeed(string rss)
+        {
+            return await Task.Run(() =>
+            {
+                var xdoc = XDocument.Parse(rss);
+                var id = 0;
+                return (from item in xdoc.Descendants("item")
+                        select new FeedItem
+                        {
+                            Title = (string)item.Element("title"),
+                            Description = (string)item.Element("description"),
+                            Link = (string)item.Element("link"),
+                            PublishDate = (string)item.Element("pubDate"),
+                            Category = (string)item.Element("category"),
+                            Id = id++
+                        }).ToList();
+            });
+        }
     }
 }

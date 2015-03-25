@@ -52,6 +52,8 @@ namespace AlcmariaVictrix.Shared
 
             builder.RegisterType<NewsView>().SingleInstance();
 
+            builder.RegisterType<NewsItemViewModel>();
+
             // current page resolver
             builder.RegisterInstance<Func<Page>>(() =>
                 ((NavigationPage)Application.Current.MainPage).CurrentPage);

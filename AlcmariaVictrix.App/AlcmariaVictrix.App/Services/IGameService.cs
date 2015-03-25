@@ -16,5 +16,7 @@ namespace AlcmariaVictrix.Shared.Services
         Task<Game> GetGame(int id);
 
         Task<Competition> GetCompetitionInfo(int id);
+
+        Task<IEnumerable<FeedItem>> GetNewsItems();
     }
 }

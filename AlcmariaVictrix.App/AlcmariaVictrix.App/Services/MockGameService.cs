@@ -30,5 +30,11 @@ namespace AlcmariaVictrix.Shared.Services
         {
             throw new NotImplementedException();
         }
+
+
+        public Task<IEnumerable<FeedItem>> GetNewsItems()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
