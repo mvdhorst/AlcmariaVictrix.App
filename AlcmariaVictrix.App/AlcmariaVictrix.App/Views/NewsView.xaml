@@ -3,5 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AlcmariaVictrix.Shared.Views.NewsView"
               Title="{Binding Title}">
-	<Label Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="Center" />
+  <StackLayout>
+    <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Color="Default" />
+    <Label Text="Wedstrijden" FontSize="Large" />
+    <ListView ItemsSource="{Binding NewsItems}"
+              x:Name="list"
+              HasUnevenRows="True">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <TextCell Text="{Binding Item.Title}" Detail="{Binding Item.PublishDate}" Command="{Binding ShowItemCommand}"></TextCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </StackLayout>
 </ContentPage>

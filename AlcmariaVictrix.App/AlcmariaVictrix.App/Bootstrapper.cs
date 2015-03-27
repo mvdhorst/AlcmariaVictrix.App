@@ -37,6 +37,7 @@ namespace AlcmariaVictrix.Shared
             viewFactory.Register<GamesViewModel, GamesView>();
             viewFactory.Register<CompetitionInfoViewModel, CompetitionInfoView>();
             viewFactory.Register<NewsViewModel, NewsView>();
+            viewFactory.Register<NewsItemViewModel, NewsItemView>();
             //viewFactory.Register<ForecastReportViewModel, ForecastReportView>();
         }
 

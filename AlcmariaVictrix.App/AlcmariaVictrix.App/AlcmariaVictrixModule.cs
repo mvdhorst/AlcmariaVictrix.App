@@ -38,6 +38,9 @@ namespace AlcmariaVictrix.Shared
                 .SingleInstance();
 
             builder.RegisterType<NewsViewModel>().SingleInstance();
+            builder.RegisterType<NewsItemViewModel>();
+
+
             // view registration
             builder.RegisterType<MainView>()
                 .SingleInstance();
@@ -47,12 +50,11 @@ namespace AlcmariaVictrix.Shared
             builder.RegisterType<CompetitionsView>()
                 .SingleInstance();
 
-            builder.RegisterType<CompetitionInfoView>()
-                .SingleInstance();
+            builder.RegisterType<CompetitionInfoView>();
 
             builder.RegisterType<NewsView>().SingleInstance();
+            builder.RegisterType<NewsItemView>();
 
-            builder.RegisterType<NewsItemViewModel>();
 
             // current page resolver
             builder.RegisterInstance<Func<Page>>(() =>

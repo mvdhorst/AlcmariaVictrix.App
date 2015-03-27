@@ -17,6 +17,7 @@ namespace AlcmariaVictrix.Shared.ViewModels
     class NewsViewModel : ViewModelBase
     {
         private IEnumerable<NewsItemViewModel> _feedItems;
+        private IEnumerable<FeedItem> _newsItems;
         private readonly IGameService _gameService;
         private readonly Func<FeedItem, NewsItemViewModel> _feedItemModelFactory;
         private readonly IDialogProvider _dialogProvider;
@@ -37,6 +38,12 @@ namespace AlcmariaVictrix.Shared.ViewModels
             SetNewsItems();
         }
 
+        //public IEnumerable<NewsItemViewModel> NewsItems
+        //{
+        //    get { return _feedItems; }
+        //    set { SetProperty(ref _feedItems, value); }
+        //}
+
         public IEnumerable<NewsItemViewModel> NewsItems
         {
             get { return _feedItems; }
@@ -54,6 +61,7 @@ namespace AlcmariaVictrix.Shared.ViewModels
                 if (newsItems == null)
                     return;
                 NewsItems = newsItems.Select(n => _feedItemModelFactory(n))
+               // NewsItems = newsItems
                     .ToList();           
             }
             catch (Exception ex)
