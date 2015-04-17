@@ -23,6 +23,7 @@
     <JavaMaximumHeapSize />
     <JavaOptions />
     <NuGetPackageImportStamp>ed6db8eb</NuGetPackageImportStamp>
+    <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -170,6 +171,24 @@
   <ItemGroup>
     <Content Include="PluginsHelp\ConnectivityReadme.txt" />
     <Content Include="Properties\AndroidManifest.xml" />
+    <AndroidResource Include="Resources\drawable-xxhdpi-v11\ic_stat_alcmaria_burcht.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_alcmaria_burcht.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_stat_alcmaria_burcht.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi-v11\ic_stat_alcmaria_burcht.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_stat_alcmaria_burcht.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_action_alcmaria_burcht.png" />
+    <AndroidResource Include="Resources\drawable-mdpi-v11\ic_stat_alcmaria_burcht.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_action_alcmaria_burcht.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_stat_alcmaria_burcht.png" />
+    <AndroidResource Include="Resources\drawable-hdpi-v11\ic_stat_alcmaria_burcht.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_stat_alcmaria_burcht.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_action_alcmaria_burcht.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\drawable\ic_launcher.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_launcher.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AlcmariaVictrix.App.Core\WebMolen.Mobile.Core.csproj">

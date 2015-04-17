@@ -65,6 +65,7 @@ namespace AlcmariaVictrix.Shared
             navigationPage.BarBackgroundColor = backgroundColor;
             navigationPage.BarTextColor = textColor;
             navigationPage.BackgroundColor = backgroundColor;
+            //navigationPage.Icon = 
 
             _application.MainPage = navigationPage;
         }
