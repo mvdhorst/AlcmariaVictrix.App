@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Acr.XamForms.UserDialogs;
+using Acr.UserDialogs;
 using WebMolen.Mobile.Core.Factories;
 using WebMolen.Mobile.Core.ViewModels;
 using Xamarin.Forms;
@@ -12,7 +12,7 @@ namespace AlcmariaVictrix.Shared.ViewModels
 {
     public class MainVM : ViewModelBase
     {
-        private readonly IUserDialogService _dialogService;
+        private readonly IUserDialogs _dialogService;
         private IEnumerable<Page> _views;
 
         public IEnumerable<Page> Views
@@ -22,10 +22,9 @@ namespace AlcmariaVictrix.Shared.ViewModels
         }
 
 
-        public MainVM(
-            IUserDialogService dialogService)
+        public MainVM()
         {
-            this._dialogService = dialogService;
+            this._dialogService = UserDialogs.Instance;
 
         Title = "Alcmaria Victrix";
         TodayQuickGameInfo = "Vandaag geen wedstrijden";

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using WebMolen.Mobile.Core.Helpers;
 using WebMolen.Mobile.Core.Interfaces;
 using WebMolen.Mobile.Core.ViewModels;
-using Acr.XamForms.UserDialogs;
+using Acr.UserDialogs;
 using Xamarin.Forms;
 
 namespace AlcmariaVictrix.Shared.ViewModels
@@ -21,16 +21,15 @@ namespace AlcmariaVictrix.Shared.ViewModels
         private readonly IGameService _gameService;
         private readonly Func<FeedItem, NewsItemViewModel> _feedItemModelFactory;
         private readonly IDialogProvider _dialogProvider;
-        private readonly IUserDialogService dialogService;
+        private readonly IUserDialogs dialogService;
 
 
         public NewsViewModel(
             IGameService gameService,
             Func<FeedItem, NewsItemViewModel> feedItemModelFactory,
-            IDialogProvider dialogProvider,
-            IUserDialogService dialogService)
+            IDialogProvider dialogProvider)
         {
-            this.dialogService = dialogService;
+            this.dialogService = UserDialogs.Instance;
             this._dialogProvider = dialogProvider;
             _feedItemModelFactory = feedItemModelFactory;
             _gameService = gameService;
@@ -52,7 +51,6 @@ namespace AlcmariaVictrix.Shared.ViewModels
 
         private async void SetNewsItems()
         {
-            IUserDialogService test = DependencyService.Get<IUserDialogService>();
             try
             {
                 IsBusy = true;

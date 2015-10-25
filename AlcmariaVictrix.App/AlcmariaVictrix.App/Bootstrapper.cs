@@ -9,7 +9,6 @@ using AlcmariaVictrix.Shared.Views;
 using WebMolen.Mobile.Core.Factories;
 using AlcmariaVictrix.Shared.ViewModels;
 using WebMolen.Mobile.Core.Bootstrapping;
-using Acr.XamForms.UserDialogs;
 
 namespace AlcmariaVictrix.Shared
 {
@@ -25,7 +24,6 @@ namespace AlcmariaVictrix.Shared
         protected override void ConfigureContainer(ContainerBuilder builder)
         {
             base.ConfigureContainer(builder);
-            RegisterXamService<IUserDialogService>(builder);
             builder.RegisterModule<AlcmariaVictrixModule>();
 
         }

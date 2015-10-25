@@ -11,7 +11,7 @@ using System.Windows.Input;
 using WebMolen.Mobile.Core.Services;
 using WebMolen.Mobile.Core.ViewModels;
 using Xamarin.Forms;
-using Acr.XamForms.UserDialogs;
+using Acr.UserDialogs;
 
 namespace AlcmariaVictrix.Shared.ViewModels
 {
@@ -20,7 +20,7 @@ namespace AlcmariaVictrix.Shared.ViewModels
         private readonly IGameService _gameService;
         private readonly INavigator _navigator;
         private readonly Competition _competition;
-        private readonly IUserDialogService _dialogService;
+        private readonly IUserDialogs _dialogService;
         public string NameSort
         {
             get
@@ -42,13 +42,12 @@ namespace AlcmariaVictrix.Shared.ViewModels
         public CompetitionViewModel(
             Competition competition, 
             IGameService gameService,
-            INavigator navigator,
-            IUserDialogService dialogService)
+            INavigator navigator)
         {
             _competition = competition;
             _gameService = gameService;
             _navigator = navigator;
-            _dialogService = dialogService;
+            _dialogService = UserDialogs.Instance;
 
             ShowCompetitionCommand = new Command(ShowCompetition);
         }

@@ -3,12 +3,7 @@ using AlcmariaVictrix.Shared.ViewModels;
 using AlcmariaVictrix.Shared.Views;
 using Autofac;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
-using Acr.XamForms.UserDialogs;
 
 namespace AlcmariaVictrix.Shared
 {

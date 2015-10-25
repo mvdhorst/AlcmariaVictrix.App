@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 using Xamarin.Forms.Platform.Android;
 using AlcmariaVictrix.Shared;
+using Acr.UserDialogs;
 
 namespace AlcmariaVictrix.Droid
 {
@@ -19,6 +20,7 @@ namespace AlcmariaVictrix.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            UserDialogs.Init(this);
             LoadApplication(new AlcmariaVictrixApp());
         }
     }

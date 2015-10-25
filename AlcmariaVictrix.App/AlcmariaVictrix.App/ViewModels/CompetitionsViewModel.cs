@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using WebMolen.Mobile.Core.Helpers;
 using WebMolen.Mobile.Core.Interfaces;
 using WebMolen.Mobile.Core.ViewModels;
-using Acr.XamForms.UserDialogs;
+using Acr.UserDialogs;
 
 namespace AlcmariaVictrix.Shared.ViewModels
 {
@@ -18,7 +18,7 @@ namespace AlcmariaVictrix.Shared.ViewModels
         private IEnumerable<CompetitionViewModel> _competitions;
         private readonly IGameService _gameService;
         private readonly Func<Competition, CompetitionViewModel> _competitionViewModelFactory;
-        private readonly IUserDialogService _dialogService;
+        private readonly IUserDialogs _dialogService;
         private ObservableCollection<Grouping<string, CompetitionViewModel>> _competitionsGrouped;
         public ObservableCollection<Grouping<string, CompetitionViewModel>> CompetitionsGrouped
         {
@@ -28,10 +28,9 @@ namespace AlcmariaVictrix.Shared.ViewModels
 
         public CompetitionsViewModel(
             IGameService gameService,
-            Func<Competition, CompetitionViewModel> competitionViewModelFactory,
-            IUserDialogService dialogService)
+            Func<Competition, CompetitionViewModel> competitionViewModelFactory)
         {
-            this._dialogService = dialogService;
+            this._dialogService = UserDialogs.Instance;
             _competitionViewModelFactory = competitionViewModelFactory;
             _gameService = gameService;
             Title = "Teams";

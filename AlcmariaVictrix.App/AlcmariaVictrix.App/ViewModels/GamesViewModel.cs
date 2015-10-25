@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using WebMolen.Mobile.Core.Helpers;
 using WebMolen.Mobile.Core.Interfaces;
 using WebMolen.Mobile.Core.ViewModels;
-using Acr.XamForms.UserDialogs;
+using Acr.UserDialogs;
 using Xamarin.Forms;
 
 namespace AlcmariaVictrix.Shared.ViewModels
@@ -20,15 +20,14 @@ namespace AlcmariaVictrix.Shared.ViewModels
         private ObservableCollection<Grouping<DateTime, GameViewModel>> _gamesGrouped;
         private readonly IGameService _gameService;
         private readonly Func<Game, GameViewModel> _gameModelFactory;
-        private readonly IUserDialogService dialogService;
+        private readonly IUserDialogs dialogService;
 
         
         public GamesViewModel(
             IGameService gameService,
-            Func<Game, GameViewModel> gameViewModelFactory,
-            IUserDialogService dialogService)
+            Func<Game, GameViewModel> gameViewModelFactory)
         {
-            this.dialogService = dialogService;
+            this.dialogService = UserDialogs.Instance;
             _gameModelFactory = gameViewModelFactory;
             _gameService = gameService;
             Title = "Games";
@@ -48,7 +47,6 @@ namespace AlcmariaVictrix.Shared.ViewModels
 
         private async void SetGames()
         {
-            IUserDialogService test = DependencyService.Get<IUserDialogService>();
             try
             {
                 IsBusy = true;
