@@ -18,27 +18,35 @@ namespace AlcmariaVictrix.Shared
                 .SingleInstance();
 
             // view model registration
-            builder.RegisterType<MainVM>()
+            //builder.RegisterType<MainVM>()
+            //    .SingleInstance();
+
+            builder.RegisterType<CompetitionInfoViewModel>()
                 .SingleInstance();
 
             builder.RegisterType<CompetitionsViewModel>()
                 .SingleInstance();
 
             builder.RegisterType<CompetitionViewModel>();
+
             builder.RegisterType<GameViewModel>();
-
             builder.RegisterType<GamesViewModel>();
-
-            builder.RegisterType<CompetitionInfoViewModel>()
-                .SingleInstance();
-
-            builder.RegisterType<NewsViewModel>().SingleInstance();
+            
             builder.RegisterType<NewsItemViewModel>();
+            builder.RegisterType<NewsViewModel>().SingleInstance();
+
+            builder.RegisterType<ResultsViewModel>().SingleInstance();
+
+            builder.RegisterType<MainViewModel>().SingleInstance();
+            builder.RegisterType<MenuPageViewModel>().SingleInstance();
+            builder.RegisterType<RootPageViewModel>().SingleInstance();
+            builder.RegisterType<MenuPageViewModel>().SingleInstance();
+
 
 
             // view registration
-            builder.RegisterType<MainView>()
-                .SingleInstance();
+            //builder.RegisterType<MainView>()
+            //    .SingleInstance();
 
             builder.RegisterType<GamesView>();
 
@@ -50,10 +58,34 @@ namespace AlcmariaVictrix.Shared
             builder.RegisterType<NewsView>().SingleInstance();
             builder.RegisterType<NewsItemView>();
 
+            builder.RegisterType<ResultsView>().SingleInstance();
+
+            builder.RegisterType<MainView>().SingleInstance();
+            builder.RegisterType<MenuPageView>().SingleInstance();
+            builder.RegisterType<RootPageView>().SingleInstance();
+
 
             // current page resolver
+            //builder.RegisterInstance<Func<Page>>(() =>
+            //    ((NavigationPage)Application.Current.MainPage).CurrentPage);
+
+            // default page resolver
             builder.RegisterInstance<Func<Page>>(() =>
-                ((NavigationPage)Application.Current.MainPage).CurrentPage);
+            {
+                // Check if we are using MasterDetailPage
+                var masterDetailPage = Application.Current.MainPage as MasterDetailPage;
+
+                var page = masterDetailPage != null
+                    ? masterDetailPage.Detail
+                    : Application.Current.MainPage;
+
+                // Check if page is a NavigationPage
+                var navigationPage = page as IPageContainer<Page>;
+
+                return navigationPage != null
+                    ? navigationPage.CurrentPage
+                        : page;
+            });
         }
     }
 }

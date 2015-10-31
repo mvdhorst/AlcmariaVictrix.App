@@ -92,6 +92,10 @@
       <HintPath>..\..\packages\Acr.UserDialogs.4.1.6\lib\MonoAndroid10\AndHUD.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ExifLib, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ExifLib.PCL.1.0.1\lib\portable-net45+sl50+win+WindowsPhoneApp81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\ExifLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FormsViewGroup, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.1.5.1.6471\lib\MonoAndroid10\FormsViewGroup.dll</HintPath>
       <Private>True</Private>
@@ -100,6 +104,7 @@
       <HintPath>..\..\packages\fusillade.0.6.0\lib\Portable-net45+win+wpa81+wp80\Fusillade.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Android" />
+    <Reference Include="Mono.Android.Export" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -181,10 +186,39 @@
       <HintPath>..\..\packages\Xamarin.Forms.1.5.1.6471\lib\MonoAndroid10\Xamarin.Forms.Xaml.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="XLabs.Core, Version=2.0.5679.29810, Culture=neutral, PublicKeyToken=d65109b36e5040e4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\XLabs.Core.2.0.5679\lib\portable-net45+netcore45+wp8+MonoAndroid1+MonoTouch1\XLabs.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="XLabs.Forms, Version=2.0.5679.29810, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\XLabs.Forms.2.0.5679\lib\MonoAndroid\XLabs.Forms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="XLabs.Forms.Droid, Version=2.0.5679.29814, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\XLabs.Forms.2.0.5679\lib\MonoAndroid\XLabs.Forms.Droid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="XLabs.Ioc, Version=2.0.5679.29810, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\XLabs.IoC.2.0.5679\lib\portable-net45+netcore45+wp8+MonoAndroid1+MonoTouch1\XLabs.Ioc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="XLabs.Platform, Version=2.0.5679.29810, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\XLabs.Platform.2.0.5679\lib\MonoAndroid\XLabs.Platform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="XLabs.Platform.Droid, Version=2.0.5679.29813, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\XLabs.Platform.2.0.5679\lib\MonoAndroid\XLabs.Platform.Droid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="XLabs.Serialization, Version=2.0.5679.29810, Culture=neutral, PublicKeyToken=d65109b36e5040e4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\XLabs.Serialization.2.0.5679\lib\portable-net45+netcore45+wp8+MonoAndroid1+MonoTouch1\XLabs.Serialization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AkavacheSqliteLinkerOverride.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Renderers\TabbedPageRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -221,6 +255,7 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_launcher.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_launcher.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\Values\styles.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AlcmariaVictrix.App.Core\WebMolen.Mobile.Core.csproj">

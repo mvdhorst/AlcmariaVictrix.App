@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <!--<style name="MyTheme"
+         parent="@android:style/Theme.Holo">
+    <item name="android:actionBarTabTextStyle">@style/MyActionBarTabText</item>
+    <item name="android:tabWidgetStyle">@style/MyActionBarTabs</item>
+  </style>
+
+  <style name="MyActionBarTabText"
+         parent="@android:style/Widget.Holo.ActionBar.TabText">
+    <item name="android:textColor">#FFFFFF</item>
+  </style>
+  --><!-- ActionBar tabs styles --><!--
+  <style name="MyActionBarTabs" parent="@android:style/Widget.Holo.ActionBar.TabView">
+
+    --><!-- tab indicator --><!--
+    <item name="android:background">@drawable/tabselector</item>
+  </style>-->
+</resources>

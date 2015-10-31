@@ -5,14 +5,14 @@
              Title="Wedstrijden">
   <StackLayout>
     <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Color="Default" />
-    <Label Text="Wedstrijden" FontSize="Large" />
+    <!--<Label Text="Wedstrijden" FontSize="Large" />-->
     <ListView ItemsSource="{Binding GamesGrouped}" 
               x:Name="list"
                 IsGroupingEnabled="True"
                 GroupDisplayBinding="{Binding Key}"
                 GroupShortNameBinding="{Binding Key, StringFormat='{0:dddd dd MMMM}'}}"
-                HasUnevenRows="True">
-      <ListView.GroupHeaderTemplate>
+                HasUnevenRows="True" SeparatorColor="#c51100" SeparatorVisibility="None" IsPullToRefreshEnabled="True">
+      <ListView.GroupHeaderTemplate SeparatorColor="#c51100" SeparatorVisibility="Default" >
         <DataTemplate>
           <TextCell Text="{Binding Key, StringFormat='{0:dddd dd MMMM}'}}" TextColor="White"></TextCell>
           <!--<ViewCell Height="35">
@@ -22,9 +22,9 @@
           </ViewCell>-->
         </DataTemplate>
       </ListView.GroupHeaderTemplate>
-      <ListView.ItemTemplate>
+      <ListView.ItemTemplate SeparatorVisibility="None">
         <DataTemplate>
-          <TextCell Text="{Binding Competers}" Detail="{Binding SubInfo}"></TextCell>
+          <TextCell Text="{Binding Competers}" Detail="{Binding SubInfo}" TextColor="White"></TextCell>
           <!--<ViewCell>
             <StackLayout Orientation="Vertical" Spacing="0">
               <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >

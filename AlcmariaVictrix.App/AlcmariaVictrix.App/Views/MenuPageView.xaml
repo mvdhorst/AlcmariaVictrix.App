@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	           xmlns:cv="clr-namespace:WebMolen.Mobile.Core.Views;assembly=WebMolen.Mobile.Core"
+	           xmlns:ex="clr-namespace:WebMolen.Mobile.Core.Extensions;assembly=WebMolen.Mobile.Core"
+             x:Class="AlcmariaVictrix.Shared.Views.MenuPageView"
+             Title="Menu">
+  <StackLayout>
+    <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Color="Default" />
+    <Label Text="Menu" FontSize="Large" />
+    <ListView ItemsSource="{Binding MenuItems}"
+              x:Name="list">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <cv:TextCellExtended Text="{Binding Text}"
+                               Command="{Binding Command}" CommandParameter="{Binding CommandParameter}"/>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </StackLayout>   
+</ContentPage>

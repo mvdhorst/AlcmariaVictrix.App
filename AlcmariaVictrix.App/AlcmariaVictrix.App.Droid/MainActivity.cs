@@ -9,11 +9,12 @@ using Android.OS;
 using Xamarin.Forms.Platform.Android;
 using AlcmariaVictrix.Shared;
 using Acr.UserDialogs;
+using XLabs.Forms;
 
 namespace AlcmariaVictrix.Droid
 {
     [Activity(Label = "Alcmaria Victrix", Icon = "@drawable/ic_launcher", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity
+    public class MainActivity : FormsApplicationActivity // XFormsApplicationDroid // 
     {
         protected override void OnCreate(Bundle bundle)
         {

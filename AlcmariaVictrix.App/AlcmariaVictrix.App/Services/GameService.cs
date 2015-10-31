@@ -24,10 +24,11 @@ namespace AlcmariaVictrix.Shared.Services
         // Please obtain a free key from http://www.metoffice.gov.uk/datapoint
         private const string Key = "place met office datapoint api key here";
 
-
+        private readonly string TAG = "GameService";
 
         public async Task<List<Game>> GetGames()
         {
+            
             Debug.WriteLine("Getting games");
             var cache = BlobCache.LocalMachine;
             //await cache.InvalidateAll();
@@ -93,13 +94,18 @@ namespace AlcmariaVictrix.Shared.Services
                 Debug.WriteLine("Getting games from Alcmaria Service...");
                 result = await Get("games/honksoftbalxml");
             }
+            catch (WebException ex)
+            {
+                throw ex;
+            }
             catch (Exception ex)
             {
                 throw new Exception("Failed to get competition from service provider. The service maybe down. Retry or try again later.", ex);
             }
 
-            List<Game> games;
+            List<Game> games = null;
 
+            await Task.Run(() => { 
             try
             {
                 //var comp = JObject.Parse(result)["competitions"];
@@ -118,6 +124,7 @@ namespace AlcmariaVictrix.Shared.Services
             {
                 throw new FormatException("Failed to format competition.", ex);
             }
+            });
 
             return games;
         }
@@ -136,49 +143,52 @@ namespace AlcmariaVictrix.Shared.Services
                 throw new Exception("Failed to get competitions from service provider. The service maybe down. Retry or try again later.", ex);
             }
 
-            Competition[] competitions;
+            Competition[] competitions = null;
 
-            try
+            await Task.Run(() =>
             {
-                var competitionToken = JObject.Parse(result)["competitions"];
                 try
                 {
-                    RootObject root = JsonConvert.DeserializeObject<RootObject>(result);
-                }
-                catch
-                {
-                    Debug.WriteLine(" test");
-                }
-
-                competitions = competitionToken.Select(comp =>
-                {
-
-                    var competition = new Competition
+                    var competitionToken = JObject.Parse(result)["competitions"];
+                    try
                     {
-                        Competition_id = (string)(comp["Competition"]["competition_id"] ?? ""),
-                        Name = (string)(comp["Competition"]["name"] ?? ""),
-                        Team = new Team
-                        {                            
-                        Name = (string)(comp["Team"]["team_naam"] ?? ""), 
-                        ShortName = (string)(comp["Team"]["team_naamkort"] ?? ""),
-                        }
-                    };
-                    int id = 0;
+                        RootObject root = JsonConvert.DeserializeObject<RootObject>(result);
+                    }
+                    catch
+                    {
+                        Debug.WriteLine(" test");
+                    }
+
+                    competitions = competitionToken.Select(comp =>
+                    {
+
+                        var competition = new Competition
+                        {
+                            Competition_id = (string)(comp["Competition"]["competition_id"] ?? ""),
+                            Name = (string)(comp["Competition"]["name"] ?? ""),
+                            Team = new Team
+                            {
+                                Name = (string)(comp["Team"]["team_naam"] ?? ""),
+                                ShortName = (string)(comp["Team"]["team_naamkort"] ?? ""),
+                            }
+                        };
+                        int id = 0;
                     //if(Int32.TryParse((string)(comp["Competition"]["competition_id"] ?? ""), out id))
                     //    competition.Id = id;
                     if (Int32.TryParse((string)(comp["Team"]["team_id"] ?? ""), out id))
-                        competition.Team.Id = id;
-                    if(Int32.TryParse((string)(comp["Team"]["sport_id"] ?? ""), out id))
-                        competition.Team.SportId = id;
+                            competition.Team.Id = id;
+                        if (Int32.TryParse((string)(comp["Team"]["sport_id"] ?? ""), out id))
+                            competition.Team.SportId = id;
 
-                    return competition;
+                        return competition;
 
-                }).ToArray();
-            }
-            catch (Exception ex)
-            {
-                throw new FormatException("Failed to format competitions.", ex);
-            }
+                    }).ToArray();
+                }
+                catch (Exception ex)
+                {
+                    throw new FormatException("Failed to format competitions.", ex);
+                }
+            });
 
             return competitions;
         }

@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace AlcmariaVictrix.Shared.ViewModels
 {
-    public class MainVM : ViewModelBase
+    public class MainViewModel : ViewModelBase
     {
         private readonly IUserDialogs _dialogService;
         private IEnumerable<Page> _views;
@@ -22,7 +22,7 @@ namespace AlcmariaVictrix.Shared.ViewModels
         }
 
 
-        public MainVM()
+        public MainViewModel()
         {
             this._dialogService = UserDialogs.Instance;
 
